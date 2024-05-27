@@ -7,6 +7,6 @@
 <script setup></script>
 <style>
 body {
-	background-color: #fcf5e5;
+	background-color: #edeade;
 }
 </style>

@@ -20,12 +20,21 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { fetchData } from '~/services/api';
 
 const search = ref('');
 
-const handleInput = async () => {
-	console.log('Fetching airports...');
-	await fetchData();
-};
+async function handleInput() {
+	const data = await $fetch(
+		'https://airports-by-api-ninjas.p.rapidapi.com/v1/airports?name=London',
+		{
+			method: 'GET',
+			headers: {
+				'x-rapidapi-host': 'airports-by-api-ninjas.p.rapidapi.com',
+				'x-rapidapi-key':
+					'b7ea270eedmshb2757dd9d8ad841p19c27fjsndcfb97a04617',
+			},
+		}
+	);
+	console.log('API data:', data);
+}
 </script>

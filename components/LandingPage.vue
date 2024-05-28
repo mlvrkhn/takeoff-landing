@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+const config = useRuntimeConfig();
 
 const search = ref('');
 
@@ -30,11 +31,12 @@ async function handleInput() {
 			method: 'GET',
 			headers: {
 				'x-rapidapi-host': 'airports-by-api-ninjas.p.rapidapi.com',
-				'x-rapidapi-key':
-					'b7ea270eedmshb2757dd9d8ad841p19c27fjsndcfb97a04617',
+				'x-rapidapi-key': config?.public.apiKey,
 			},
 		}
 	);
+	console.log('PROCESS:', config);
+
 	console.log('API data:', data);
 }
 </script>

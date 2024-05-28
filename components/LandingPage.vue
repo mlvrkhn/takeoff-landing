@@ -10,6 +10,7 @@
 					placeholder="Start typing to find airports you visited"
 					class="input input-bordered w-full max-w-xs p-2 rounded-lg text-center"
 					v-model="search"
+					@input="handleInput"
 				/>
 			</div>
 			<GlobeGl />
@@ -19,5 +20,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { fetchData } from '~/services/api';
+
 const search = ref('');
+
+const handleInput = async () => {
+	console.log('Fetching airports...');
+	await fetchData();
+};
 </script>

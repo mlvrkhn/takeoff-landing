@@ -1,5 +1,7 @@
 <template>
-	<div id="globeViz"></div>
+	<div class="">
+		<div id="globeViz" />
+	</div>
 </template>
 
 <script setup>

@@ -18,7 +18,6 @@
 				v-for="airport in airports"
 				:key="airport.iata"
 				@click="selectAirport(airport)"
-				selected
 			>
 				{{ airport.iata || '000' }}: {{ airport.name }}
 			</option>
@@ -29,6 +28,14 @@
 <script setup lang="ts">
 const config = useRuntimeConfig();
 import { ref } from 'vue';
+
+defineProps({
+	selectedAirports: Array,
+});
+
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['add-airport']);
 
 const search = ref('');
 let airports = ref([]);
@@ -48,6 +55,8 @@ async function handleInput() {
 }
 
 function selectAirport(airport) {
-	console.log(airport);
+	console.log('airport selected');
+
+	emit('add-airport', airport);
 }
 </script>

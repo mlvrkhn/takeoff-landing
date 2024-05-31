@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-4 flex flex-row w-screen">
+	<div class="flex space-aroundflex justify-center items-center h-screen">
 		<ClientOnly fallback-tag="span" fallback="Loading 3D Globe...">
 			<AirportSearch @add-airport="addAirport" />
 			<GlobeGl :airports="selectedAirports" />

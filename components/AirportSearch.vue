@@ -9,20 +9,24 @@
 				placeholder="Start typing to find airports you visited"
 				class="input input-bordered w-full max-w-xs p-2 text-center"
 				v-model="search"
-				@input="handleInput"
+				@input="fetchAirports"
 			/>
 		</div>
-		<div class="flex flex-col items-center justify-center">
+		<div
+			class="flex flex-col items-center justify-center"
+			v-if="airports.length"
+		>
 			<select
 				class="select select-bordered w-full p-2 max-w-xs"
-				v-if="airports.length"
+				v-model="visitedAirports"
+				@change="onAirportChange"
 			>
 				<option
 					v-for="airport in airports"
 					:key="airport.iata"
-					@click="selectAirport(airport)"
+					:value="airport"
 				>
-					{{ airport.iata || '000' }}: {{ airport.name }}
+					{{ airport.iata }} - {{ airport.name }}
 				</option>
 			</select>
 		</div>
@@ -33,18 +37,25 @@
 const config = useRuntimeConfig();
 import { ref } from 'vue';
 
-defineProps({
-	selectedAirports: Array,
-});
-
 import { defineEmits } from 'vue';
 
-const emit = defineEmits(['add-airport']);
+const emit = defineEmits(['update']);
+const props = defineProps({
+	// visitedAirports: {
+	// 	type: Array,
+	// 	default: () => [],
+	// },
+	// airports: {
+	// 	type: Array,
+	// 	default: () => [],
+	// },
+});
 
 const search = ref('');
-let airports = ref([]);
+let airports = ref('');
+let visitedAirports = ref('');
 
-async function handleInput() {
+async function fetchAirports() {
 	airports = await $fetch(
 		'https://airports-by-api-ninjas.p.rapidapi.com/v1/airports?name=' +
 			search.value,
@@ -58,9 +69,10 @@ async function handleInput() {
 	);
 }
 
-function selectAirport(airport) {
-	console.log('airport selected');
+function onAirportChange(event: Event) {
+	console.debug('🚀   onAirportChange  event:', event);
+	console.debug('🚀   onAirportChange  event:', event.target!);
 
-	emit('add-airport', airport);
+	emit('update', selectedAirport);
 }
 </script>

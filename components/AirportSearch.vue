@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col justify-center p-5">
-		<div class="flex flex-col items-center justify-center min-w-96">
+		<div class="flex flex-col items-center justify-center min-w-96 mb-4">
 			<h1 class="text-4xl font-bold mb-4 text-center">
 				Takeoff & Landing
 			</h1>
@@ -13,22 +13,18 @@
 			/>
 		</div>
 		<div
-			class="flex flex-col items-center justify-center"
+			class="flex flex-wrap gap-2 items-center justify-center"
 			v-if="airports.length"
 		>
-			<select
-				class="select select-bordered w-full p-2 max-w-xs"
-				v-model="visitedAirports"
-				@change="onAirportChange"
+			<el-tag
+				v-for="airport in airports.filter(airport => airport.iata)"
+				:key="airport.iata"
+				closable
+				type="success"
+				class="inline-block mr-2 mb-2"
 			>
-				<option
-					v-for="airport in airports"
-					:key="airport.iata"
-					:value="airport"
-				>
-					{{ airport.iata }} - {{ airport.name }}
-				</option>
-			</select>
+				{{ airport.iata }} - {{ airport.name.slice(0, 10) }}
+			</el-tag>
 		</div>
 	</div>
 </template>
@@ -52,7 +48,7 @@ const props = defineProps({
 });
 
 const search = ref('');
-let airports = ref('');
+let airports = ref([]);
 let visitedAirports = ref('');
 
 async function fetchAirports() {

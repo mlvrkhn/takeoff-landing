@@ -1,8 +1,14 @@
 <template>
-	<div class="flex space-aroundflex justify-center items-center h-screen">
+	<div
+		class="flex justify-center items-center h-screen w-screen flex-col md:flex-row overflow-y-auto"
+	>
 		<ClientOnly fallback-tag="span" fallback="Loading 3D Globe...">
-			<AirportSearch @add-airport="addAirport" />
-			<GlobeGl :airports="selectedAirports" />
+			<div class="flex-shrink-0">
+				<AirportSearch @add-airport="addAirport" />
+			</div>
+			<div class="flex-shrink-0 max-w-4/5">
+				<GlobeGl :airports="selectedAirports" />
+			</div>
 		</ClientOnly>
 	</div>
 </template>

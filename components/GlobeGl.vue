@@ -37,7 +37,8 @@ function setupGlobe() {
 			// .pointsData(gData)
 			.pointAltitude('size')
 			.pointColor('color')
-			.width(1024)
+			// .width(1024)
+			.width(window.innerWidth * 0.6)
 			.htmlElementsData(gData)
 			.htmlElement(d => {
 				const el = document.createElement('div');

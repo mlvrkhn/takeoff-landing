@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col justify-center p-5">
+	<div class="flex flex-col justify-center p-5 mt-10">
 		<div class="flex flex-col items-center justify-center min-w-96 mb-4">
 			<h1 class="text-4xl font-bold mb-4 text-center">
 				Takeoff & Landing
@@ -7,9 +7,10 @@
 			<input
 				type="text"
 				placeholder="Start typing to find airports you visited"
-				class="input input-bordered w-full max-w-xs p-2 text-center"
+				class="input input-bordered rounded w-full max-w-xs p-2 text-center"
 				v-model="search"
-				@input="fetchAirports"
+				@keyup.enter="fetchAirports"
+				@blur="fetchAirports"
 			/>
 		</div>
 		<div
@@ -22,8 +23,13 @@
 				closable
 				type="success"
 				class="inline-block mr-2 mb-2"
+				@click="onAirportChange(airport)"
+				@close="handleClose(airport)"
+				hit
+				size="large"
+				round
 			>
-				{{ airport.iata }} - {{ airport.name.slice(0, 10) }}
+				{{ airport.iata }} - {{ airport.name.slice(0, 12) }}
 			</el-tag>
 		</div>
 	</div>
@@ -67,8 +73,10 @@ async function fetchAirports() {
 
 function onAirportChange(event: Event) {
 	console.debug('🚀   onAirportChange  event:', event);
-	console.debug('🚀   onAirportChange  event:', event.target!);
+	// emit('update', selectedAirport);
+}
 
-	emit('update', selectedAirport);
+function handleClose(tag) {
+	console.log('close tag: ', tag);
 }
 </script>
